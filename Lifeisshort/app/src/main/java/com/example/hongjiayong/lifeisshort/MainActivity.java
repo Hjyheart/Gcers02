@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.hongjiayong.lifeisshort.ShareWindows.ShareContainer;
+import com.example.hongjiayong.lifeisshort.fragments.Login;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                fragmentClass = BlankFragment.class;
+                fragmentClass = Login.class;
                 break;
             case R.id.nav_second_fragment:
                 fragmentClass = BlankFragment.class;
