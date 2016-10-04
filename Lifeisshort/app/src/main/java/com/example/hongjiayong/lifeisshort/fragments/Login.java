@@ -101,17 +101,17 @@ public class Login extends BaseFragment {
                             String responseData = response.body().string();
                             JSONObject json = new JSONObject(responseData);
                             final String name = json.getString("name");
-                            final String birth = json.getString("birthday");
-                            final String sex = json.getString("sex");
+                            final Boolean sex = json.getBoolean("sex");
                             final String sign = json.getString("sign");
+                            final String username = json.getString("username");
 
                             // store
-                            SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_APPEND);
+                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("name", name);
-                            editor.putString("birthday", birth);
-                            editor.putString("sex", sex);
+                            editor.putBoolean("sex", sex);
                             editor.putString("sign", sign);
+                            editor.putString("username", username);
                             editor.commit();
 
                             Intent intent = new Intent(getContext(), MainActivity.class);

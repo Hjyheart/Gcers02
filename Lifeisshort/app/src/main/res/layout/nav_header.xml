@@ -6,7 +6,8 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:gravity="bottom"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/nav_header">
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
         android:src="@mipmap/ic_launcher"
         android:layout_weight="1.06" />
     <TextView
+        android:id="@+id/header_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Header"

@@ -1,6 +1,8 @@
 package com.example.hongjiayong.lifeisshort;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.PersistableBundle;
@@ -17,9 +19,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.example.hongjiayong.lifeisshort.ShareWindows.ShareContainer;
 import com.example.hongjiayong.lifeisshort.fragments.Login;
+import com.example.hongjiayong.lifeisshort.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
+    private TextView headerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        initTool();
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
@@ -45,28 +50,32 @@ public class MainActivity extends AppCompatActivity {
 
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
+        View headLayout = nvDrawer.inflateHeaderView(R.layout.nav_header);
+        headerName = (TextView) headLayout.findViewById(R.id.header_username);
+
         setupDrawerContent(nvDrawer);
+
+
+        // init content
+        SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", "囧");
+        headerName.setText(name);
+
+        // init fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        try {
+            fragmentManager.beginTransaction().replace(R.id.flContent, ProfileFragment.class.newInstance()).commit();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
-//    private void initTool() {
-//        Intent intent = new Intent(this, Main2Activity.class);
-//        mFirstTestTool = new ActSwitchAnimTool(this).setAnimType(0)
-//                .target(mActionSwitchBtn)
-//                .setShrinkBack(true)
-//                .setmColorStart(Color.parseColor("#FF5777"))
-//                .setmColorEnd(Color.parseColor("#FF5777"))
-//                .startActivity(intent, false);
-//    }
+
 
     @Override
     protected void onResume() {
-//        if (mFirstTestTool == null)
-//            return;
-//        if (mFirstTestTool.isWaitingResume()){
-//            mFirstTestTool.setAnimType(1)
-//                    .setIsWaitingResume(false)
-//                    .build();
-//        }
         super.onResume();
     }
 
@@ -117,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                fragmentClass = Login.class;
+                fragmentClass = BlankFragment.class;
                 break;
             case R.id.nav_second_fragment:
                 fragmentClass = BlankFragment.class;
