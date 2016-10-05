@@ -112,6 +112,7 @@ public class Login extends BaseFragment {
                             editor.putBoolean("sex", sex);
                             editor.putString("sign", sign);
                             editor.putString("username", username);
+                            editor.putString("password", password.getText().toString());
                             editor.commit();
 
                             Intent intent = new Intent(getContext(), MainActivity.class);

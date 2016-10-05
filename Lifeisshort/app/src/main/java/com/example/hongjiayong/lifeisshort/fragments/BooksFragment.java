@@ -1,17 +1,21 @@
 package com.example.hongjiayong.lifeisshort.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +27,19 @@ import com.example.hongjiayong.lifeisshort.Book;
 import com.example.hongjiayong.lifeisshort.BooksAdapter;
 import com.example.hongjiayong.lifeisshort.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +75,7 @@ public class BooksFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        prepareAlbums();
+        prepareBooks();
 
         try {
             Glide.with(this).load(R.drawable.cover).into((ImageView) view.findViewById(R.id.backdrop));
@@ -103,8 +118,8 @@ public class BooksFragment extends Fragment {
         });
     }
 
-    private void prepareAlbums() {
-        int[] covers = new int[]{
+    private void prepareBooks() {
+        final int[] covers = new int[]{
                 R.drawable.book1,
                 R.drawable.book2,
                 R.drawable.book3,
@@ -128,6 +143,47 @@ public class BooksFragment extends Fragment {
 
         Book d = new Book("计算机组成原理3", "优", "张晨曦", "学习", "xiaowang", "On", "高等教育出版社", covers[3]);
         bookList.add(d);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
+        final String username = sharedPreferences.getString("username", "xiaowang");
+        String password = sharedPreferences.getString("password", " ");
+
+        String url = new String("http://www.hjyheart.com/getBooks?username=" + username + "&password=" + password);
+        Log.e("url_getBook", url);
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Snackbar.make(getView(), "未知网络错误", Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+//                try{
+//                    String responseData = response.body().toString();
+//                    JSONArray jsonArray = new JSONArray(responseData);
+//                    JSONObject jsonObject = new JSONObject(responseData);
+
+//                    for (int i = 0; i < jsonArray.length(); i++){
+//                        JSONObject json = jsonArray.getJSONObject(i);
+//                        String name = json.getString("name");
+//                        String author = json.getString("author");
+//                        String publisher = json.getString("publisher");
+//                        String tag = json.getString("tag");
+//                        String description = json.getString("description");
+//                        String state = json.getString("state");
+//                        Book temp = new Book(name, description, author, tag, username, state, publisher, covers[(int)Math.random()*10]);
+//                        bookList.add(temp);
+//                    }
+//                }catch (JSONException e){
+//
+//                }
+            }
+        });
 
         adapter.notifyDataSetChanged();
     }
