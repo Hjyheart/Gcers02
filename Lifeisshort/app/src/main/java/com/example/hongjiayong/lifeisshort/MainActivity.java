@@ -1,14 +1,9 @@
 package com.example.hongjiayong.lifeisshort;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.os.PersistableBundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -19,11 +14,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.hongjiayong.lifeisshort.ShareWindows.ShareContainer;
-import com.example.hongjiayong.lifeisshort.fragments.Login;
+import com.example.hongjiayong.lifeisshort.fragments.BooksFragment;
 import com.example.hongjiayong.lifeisshort.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -129,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = BlankFragment.class;
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = BlankFragment.class;
+                fragmentClass = BooksFragment.class;
                 break;
             case R.id.nav_third_fragment:
                 fragmentClass = BlankFragment.class;
