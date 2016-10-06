@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // init fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         try {
-            fragmentManager.beginTransaction().replace(R.id.flContent, ProfileFragment.class.newInstance()).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, BooksFragment.class.newInstance()).commit();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                fragmentClass = BlankFragment.class;
+                fragmentClass = ProfileFragment.class;
                 break;
             case R.id.nav_second_fragment:
                 fragmentClass = BooksFragment.class;
@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-//            if (getSupportFragmentManager().findFragmentByTag(String.valueOf(menuItem.getItemId())) == null)
                 fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();

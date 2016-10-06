@@ -21,7 +21,7 @@ import java.security.PublicKey;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContentFragment extends Fragment {
+public class ContentFragment extends Fragment{
 
     private TextView nameView;
     private TextView authorView;
@@ -89,7 +89,7 @@ public class ContentFragment extends Fragment {
     public void showEditDialog(){
         FragmentManager fm = getFragmentManager();
         EditFragment editFragment = EditFragment.newInstance(name);
+        editFragment.setTargetFragment(ContentFragment.this, 300);
         editFragment.show(fm, "framgment_edit");
     }
-
 }

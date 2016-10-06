@@ -29,12 +29,12 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:id="@+id/edit_book_author"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
         android:text="Publisher"/>
 
     <EditText
@@ -42,6 +42,18 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:id="@+id/edit_book_publisher"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="Description"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:id="@+id/edit_book_des"/>
 
     <TextView
         android:layout_width="match_parent"

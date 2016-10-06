@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -55,6 +56,7 @@ public class BooksFragment extends Fragment {
     private RecyclerView recyclerView;
     private BooksAdapter adapter;
     private List<Book> bookList;
+    private FloatingActionButton fab;
 
 
     public BooksFragment() {
@@ -66,12 +68,13 @@ public class BooksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_books, container, false);
+        final View view = inflater.inflate(R.layout.fragment_books, container, false);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         initCollapsingToolbar(view);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        fab = (FloatingActionButton) view.findViewById(R.id.add_fab);
         bookList = new ArrayList<>();
         adapter = new BooksAdapter(this.getContext(), bookList);
 
@@ -118,6 +121,13 @@ public class BooksFragment extends Fragment {
             }
         });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(view, "button", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
         try {
             Glide.with(this).load(R.drawable.cover).into((ImageView) view.findViewById(R.id.backdrop));
         } catch (Exception e) {
@@ -149,7 +159,7 @@ public class BooksFragment extends Fragment {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(getString(R.string.app_name));
+                    collapsingToolbar.setTitle(" ");
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbar.setTitle(" ");
