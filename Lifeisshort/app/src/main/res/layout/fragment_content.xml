@@ -48,6 +48,13 @@
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/backdrop_title" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/content_tag"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/backdrop_subtitle" />
+
                     </LinearLayout>
                 </RelativeLayout>
 

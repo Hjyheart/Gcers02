@@ -91,7 +91,7 @@ public class BooksFragment extends Fragment {
 
                 // start transition
                 BooksFragment fragmentOne = new BooksFragment();
-                ContentFragment fragmentTwo = ContentFragment.newInstance(temp.getName(), temp.getDescription(), temp.getCover());
+                ContentFragment fragmentTwo = ContentFragment.newInstance(temp.getName(), temp.getAuthor(), temp.getPublisher(), temp.getDescription(), temp.getTag(), temp.getCover());
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     Transition changeTransform = TransitionInflater.from(getContext()).inflateTransition(R.transition.change_image_transform);
