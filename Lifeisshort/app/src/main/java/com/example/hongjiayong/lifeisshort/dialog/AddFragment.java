@@ -1,18 +1,21 @@
-package com.example.hongjiayong.lifeisshort.fragments;
+package com.example.hongjiayong.lifeisshort.dialog;
 
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.example.hongjiayong.lifeisshort.R;
+import com.example.hongjiayong.lifeisshort.fragments.ContentFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +35,12 @@ public class AddFragment extends DialogFragment {
     public AddFragment() {
         // Required empty public constructor
     }
-    
+
+    public static AddFragment newInstance(){
+        AddFragment frag = new AddFragment();
+
+        return frag;
+    }
 
 
     @Override
@@ -45,5 +53,10 @@ public class AddFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        getDialog().setTitle("Add Book");
+        // Show soft keyboard automatically and request focus to field
+        getDialog().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 }

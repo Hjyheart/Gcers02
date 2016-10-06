@@ -32,11 +32,12 @@ import com.bumptech.glide.Glide;
 import com.example.hongjiayong.lifeisshort.Book;
 import com.example.hongjiayong.lifeisshort.BooksAdapter;
 import com.example.hongjiayong.lifeisshort.R;
+import com.example.hongjiayong.lifeisshort.dialog.AddFragment;
+import com.example.hongjiayong.lifeisshort.dialog.EditFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,7 +90,6 @@ public class BooksFragment extends Fragment {
         adapter.setmOnItemClickListener(new BooksAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, String data) {
-                Snackbar.make(getView(), data, Snackbar.LENGTH_SHORT).show();
                 Book temp = bookList.get(Integer.parseInt(data));
 
                 // start transition
@@ -124,7 +124,7 @@ public class BooksFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(view, "button", Snackbar.LENGTH_SHORT).show();
+                showAddDialog();
             }
         });
 
@@ -279,5 +279,12 @@ public class BooksFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    public void showAddDialog() {
+        FragmentManager fm = getFragmentManager();
+        AddFragment addFragment = AddFragment.newInstance();
+        addFragment.setTargetFragment(BooksFragment.this, 300);
+        addFragment.show(fm, "fragment_add");
     }
 }

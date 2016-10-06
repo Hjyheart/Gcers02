@@ -36,7 +36,7 @@
     <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/background_light</item>
         <!-- Define color properties as desired -->
         <item name="colorPrimary">@color/dark_blue</item>
         <item name="colorPrimaryDark">#000</item>
