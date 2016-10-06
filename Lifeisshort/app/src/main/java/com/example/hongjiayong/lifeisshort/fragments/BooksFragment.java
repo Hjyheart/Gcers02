@@ -119,6 +119,7 @@ public class BooksFragment extends Fragment {
     }
 
     private void prepareBooks() {
+        final int[] flag = {0};
         final int[] covers = new int[]{
                 R.drawable.book1,
                 R.drawable.book2,
@@ -132,17 +133,6 @@ public class BooksFragment extends Fragment {
                 R.drawable.book10,
                 R.drawable.book11};
 
-        Book a = new Book("计算机组成原理", "优", "张晨曦", "学习", "xiaowang", "On", "高等教育出版社", covers[0]);
-        bookList.add(a);
-
-        Book b = new Book("计算机组成原理1", "优", "张晨曦", "学习", "xiaowang", "On", "高等教育出版社", covers[1]);
-        bookList.add(b);
-
-        Book c = new Book("计算机组成原理2", "优", "张晨曦", "学习", "xiaowang", "On", "高等教育出版社", covers[2]);
-        bookList.add(c);
-
-        Book d = new Book("计算机组成原理3", "优", "张晨曦", "学习", "xiaowang", "On", "高等教育出版社", covers[3]);
-        bookList.add(d);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
         final String username = sharedPreferences.getString("username", "xiaowang");
@@ -163,28 +153,28 @@ public class BooksFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-//                try{
-//                    String responseData = response.body().toString();
-//                    JSONArray jsonArray = new JSONArray(responseData);
-//                    JSONObject jsonObject = new JSONObject(responseData);
+                try{
+                    String responseData = response.body().string();
+                    JSONArray jsonArray = new JSONArray(responseData);
 
-//                    for (int i = 0; i < jsonArray.length(); i++){
-//                        JSONObject json = jsonArray.getJSONObject(i);
-//                        String name = json.getString("name");
-//                        String author = json.getString("author");
-//                        String publisher = json.getString("publisher");
-//                        String tag = json.getString("tag");
-//                        String description = json.getString("description");
-//                        String state = json.getString("state");
-//                        Book temp = new Book(name, description, author, tag, username, state, publisher, covers[(int)Math.random()*10]);
-//                        bookList.add(temp);
-//                    }
-//                }catch (JSONException e){
-//
-//                }
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        JSONObject json = jsonArray.getJSONObject(i);
+                        String name = json.getString("name");
+                        String author = json.getString("author");
+                        String publisher = json.getString("publisher");
+                        String tag = json.getString("tag");
+                        String description = json.getString("description");
+                        String state = json.getString("state");
+                        Book temp = new Book(name, description, author, tag, username, state, publisher, covers[i]);
+                        bookList.add(temp);
+                    }
+                    flag[0] = 1;
+                }catch (JSONException e){
+
+                }
             }
         });
-
+        while (flag[0] == 0){}
         adapter.notifyDataSetChanged();
     }
 
@@ -234,4 +224,9 @@ public class BooksFragment extends Fragment {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 }

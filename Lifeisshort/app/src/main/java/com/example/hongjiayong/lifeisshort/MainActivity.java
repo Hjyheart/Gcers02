@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -133,14 +134,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            fragment = (Fragment) fragmentClass.newInstance();
+//            if (getSupportFragmentManager().findFragmentByTag(String.valueOf(menuItem.getItemId())) == null)
+                fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
+        fragmentManager.replace(R.id.flContent, fragment, String.valueOf(menuItem.getItemId()));
+        fragmentManager.addToBackStack(String.valueOf(menuItem.getItemId()));
+        fragmentManager.commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
