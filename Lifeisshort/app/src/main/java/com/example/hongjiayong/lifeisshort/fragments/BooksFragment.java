@@ -5,22 +5,27 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.hongjiayong.lifeisshort.Book;
@@ -30,6 +35,7 @@ import com.example.hongjiayong.lifeisshort.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,6 +87,34 @@ public class BooksFragment extends Fragment {
             @Override
             public void onItemClick(View view, String data) {
                 Snackbar.make(getView(), data, Snackbar.LENGTH_SHORT).show();
+                Book temp = bookList.get(Integer.parseInt(data));
+
+                // start transition
+                BooksFragment fragmentOne = new BooksFragment();
+                ContentFragment fragmentTwo = ContentFragment.newInstance(temp.getName(), temp.getDescription(), temp.getCover());
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    Transition changeTransform = TransitionInflater.from(getContext()).inflateTransition(R.transition.change_image_transform);
+                    Transition explodeTransition = TransitionInflater.from(getContext()).inflateTransition(android.R.transition.explode);
+
+                    fragmentOne.setSharedElementReturnTransition(changeTransform);
+                    fragmentOne.setExitTransition(explodeTransition);
+
+                    fragmentTwo.setSharedElementEnterTransition(changeTransform);
+                    fragmentTwo.setEnterTransition(explodeTransition);
+
+                    ImageView ivProfile = (ImageView) view.findViewById(R.id.thumbnail);
+                    TextView title = (TextView) view.findViewById(R.id.book_title);
+
+                    FragmentTransaction ft = getFragmentManager().beginTransaction()
+                            .replace(R.id.flContent, fragmentTwo)
+                            .addToBackStack("transaction")
+                            .addSharedElement(ivProfile, "cool")
+                            .addSharedElement(title, "cool");
+                    ft.commit();
+                }else{
+
+                }
             }
         });
 
