@@ -18,6 +18,7 @@
 
             <ImageView
                 android:id="@+id/thumbnail"
+                android:transitionName="cool"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/album_cover_height"
                 android:background="?attr/selectableItemBackgroundBorderless"

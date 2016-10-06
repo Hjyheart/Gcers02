@@ -1,6 +1,7 @@
 package com.example.hongjiayong.lifeisshort;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,10 +22,17 @@ import java.util.List;
  * Created by hongjiayong on 2016/10/5.
  */
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder>{
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> implements View.OnClickListener{
 
     private Context mContext;
     private List<Book> bookList;
+
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+    //define interface
+    public static interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view , String data);
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, tag;
@@ -48,6 +56,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.book_card, parent,false);
 
+        itemView.setOnClickListener(this);
+
         return new MyViewHolder(itemView);
     }
 
@@ -56,6 +66,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         Book book = bookList.get(position);
         holder.title.setText(book.getName());
         holder.tag.setText(book.getTag());
+        holder.itemView.setTag(String.valueOf(position));
 
         // loading album cover using Glide library
         Glide.with(mContext).load(book.getCover()).into(holder.thumbnail);
@@ -66,7 +77,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                 showPopupMenu(holder.overflow);
             }
         });
-
     }
 
     @Override
@@ -107,5 +117,16 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
             }
             return false;
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mOnItemClickListener != null){
+            mOnItemClickListener.onItemClick(v, (String)v.getTag());
+        }
+    }
+
+    public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 }

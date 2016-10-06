@@ -77,6 +77,13 @@ public class BooksFragment extends Fragment {
 
         prepareBooks();
 
+        adapter.setmOnItemClickListener(new BooksAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, String data) {
+                Snackbar.make(getView(), data, Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
         try {
             Glide.with(this).load(R.drawable.cover).into((ImageView) view.findViewById(R.id.backdrop));
         } catch (Exception e) {
