@@ -22,6 +22,11 @@
                     android:icon="@drawable/logout"
                     android:title="Log Out" />
                 <item
+                    android:id="@+id/version"
+                    android:icon="@drawable/version"
+                    android:title="version"
+                    />
+                <item
                     android:id="@+id/quit"
                     android:icon="@drawable/icon_cancel"
                     android:title="Quit" />
