@@ -143,7 +143,19 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
                     return true;
                 case R.id.action_delete:
-                    Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
+                    OkHttpClient client = new OkHttpClient();
+                    String url = "http://www.hjyheart.com/deleteBook?name=" + name;
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {}
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {}
+                    });
+                    Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, MainActivity.class);
                     mContext.startActivity(intent);
                     return true;
