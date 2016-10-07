@@ -216,7 +216,8 @@ public class BooksFragment extends Fragment {
                         String tag = json.getString("tag");
                         String description = json.getString("description");
                         String state = json.getString("state");
-                        Book temp = new Book(name, description, author, tag, username, state, publisher, covers[i]);
+                        String like = json.getString("like");
+                        Book temp = new Book(name, description, author, tag, username, state, publisher,like, covers[i]);
                         bookList.add(temp);
                     }
                     flag[0] = 1;

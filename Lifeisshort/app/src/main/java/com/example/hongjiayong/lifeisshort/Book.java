@@ -12,11 +12,12 @@ public class Book {
     private String owner;
     private String state;
     private String publisher;
+    private String like;
     private int cover;
 
     public Book(){}
 
-    public Book(String name, String description, String author, String tag, String owner, String state, String publisher, int cover){
+    public Book(String name, String description, String author, String tag, String owner, String state, String publisher, String like, int cover){
         this.name = name;
         this.description = description;
         this.author = author;
@@ -25,6 +26,7 @@ public class Book {
         this.tag = tag;
         this.state = state;
         this.cover = cover;
+        this.like = like;
     }
 
     public String getName(){
@@ -89,5 +91,13 @@ public class Book {
 
     public void setCover(int cover) {
         this.cover = cover;
+    }
+
+    public String getLike() {
+        return like;
+    }
+
+    public void setLike(String like) {
+        this.like = like;
     }
 }

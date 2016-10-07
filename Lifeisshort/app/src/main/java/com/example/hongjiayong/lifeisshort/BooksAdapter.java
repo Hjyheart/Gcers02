@@ -1,7 +1,10 @@
 package com.example.hongjiayong.lifeisshort;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +19,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.hongjiayong.lifeisshort.fragments.BooksFragment;
 
+import java.io.IOException;
+import java.net.HttpCookie;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by hongjiayong on 2016/10/5.
@@ -63,7 +74,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Book book = bookList.get(position);
+        final Book book = bookList.get(position);
         holder.title.setText(book.getName());
         holder.tag.setText(book.getTag());
         holder.itemView.setTag(String.valueOf(position));
@@ -74,7 +85,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(holder.overflow);
+                showPopupMenu(holder.overflow, book.getName(), book.getLike());
             }
         });
     }
@@ -87,12 +98,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     /**
      * Showing popup menu when tapping on 3 dots
      */
-    private void showPopupMenu(View view) {
+    private void showPopupMenu(View view, String name, String like) {
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_book, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(name, like));
         popup.show();
     }
 
@@ -100,18 +111,41 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
      * Click listener for popup menu items
      */
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        private String name;
+        private String like;
 
-        public MyMenuItemClickListener() {
+        public MyMenuItemClickListener(String name, String like) {
+            this.name = name;
+            this.like = like;
         }
 
         @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
+        public boolean onMenuItemClick(final MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_add_favourite:
-                    Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
+                    if (like.equals("dislike")) {
+                        OkHttpClient client = new OkHttpClient();
+                        String url = "http://www.hjyheart.com/editBook?name=" + name + "&id=like&like=like";
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .build();
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {}
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {}
+                        });
+                        Toast.makeText(mContext, "加入收藏", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(mContext, "已经加入收藏", Toast.LENGTH_SHORT).show();
+                    }
+
                     return true;
-                case R.id.action_play_next:
+                case R.id.action_delete:
                     Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    mContext.startActivity(intent);
                     return true;
                 default:
             }
