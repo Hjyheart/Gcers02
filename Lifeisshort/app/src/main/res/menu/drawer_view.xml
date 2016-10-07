@@ -12,7 +12,7 @@
         <item
             android:id="@+id/nav_third_fragment"
             android:icon="@drawable/icon_twitter"
-            android:title="Third" />
+            android:title="My Favorite" />
     </group>
     <item android:title="Sub items">
         <menu>

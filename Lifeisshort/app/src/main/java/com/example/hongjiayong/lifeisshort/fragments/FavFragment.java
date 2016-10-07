@@ -31,9 +31,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.hongjiayong.lifeisshort.Book;
 import com.example.hongjiayong.lifeisshort.BooksAdapter;
+import com.example.hongjiayong.lifeisshort.FavBooksAdapter;
 import com.example.hongjiayong.lifeisshort.R;
 import com.example.hongjiayong.lifeisshort.dialog.AddFragment;
-import com.example.hongjiayong.lifeisshort.dialog.EditFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,15 +52,14 @@ import okhttp3.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BooksFragment extends Fragment {
+public class FavFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private BooksAdapter adapter;
+    private FavBooksAdapter adapter;
     private List<Book> bookList;
     private FloatingActionButton fab;
 
-
-    public BooksFragment() {
+    public FavFragment() {
         // Required empty public constructor
     }
 
@@ -69,31 +68,31 @@ public class BooksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_books, container, false);
+        final View view =  inflater.inflate(R.layout.fragment_fav, container, false);
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.fav_toolbar);
         initCollapsingToolbar(view);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        fab = (FloatingActionButton) view.findViewById(R.id.add_fab);
+        recyclerView = (RecyclerView) view.findViewById(R.id.fav_recycler_view);
+        fab = (FloatingActionButton) view.findViewById(R.id.fav_add_fab);
         bookList = new ArrayList<>();
-        adapter = new BooksAdapter(this.getContext(), bookList);
+        adapter = new FavBooksAdapter(this.getContext(), bookList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new FavFragment.GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
         prepareBooks();
 
-        adapter.setmOnItemClickListener(new BooksAdapter.OnRecyclerViewItemClickListener() {
+        adapter.setmOnItemClickListener(new FavBooksAdapter.FavOnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, String data) {
                 Book temp = bookList.get(Integer.parseInt(data));
 
                 // start transition
-                BooksFragment fragmentOne = new BooksFragment();
+                FavFragment fragmentOne = new FavFragment();
                 ContentFragment fragmentTwo = ContentFragment.newInstance(temp.getName(), temp.getAuthor(), temp.getPublisher(), temp.getDescription(), temp.getTag(), temp.getCover());
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
@@ -121,15 +120,8 @@ public class BooksFragment extends Fragment {
             }
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddDialog();
-            }
-        });
-
         try {
-            Glide.with(this).load(R.drawable.cover).into((ImageView) view.findViewById(R.id.backdrop));
+            Glide.with(this).load(R.drawable.book9).into((ImageView) view.findViewById(R.id.fav_backdrop));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,15 +129,16 @@ public class BooksFragment extends Fragment {
         return view;
     }
 
+
     /**
      * Initializing collapsing toolbar
      * Will show and hide the toolbar title on scroll
      */
     private void initCollapsingToolbar(View view) {
         final CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
+                (CollapsingToolbarLayout) view.findViewById(R.id.fav_collapsing_toolbar);
         collapsingToolbar.setTitle(" ");
-        AppBarLayout appBarLayout = (AppBarLayout) view.findViewById(R.id.appbar);
+        AppBarLayout appBarLayout = (AppBarLayout) view.findViewById(R.id.fav_appbar);
         appBarLayout.setExpanded(true);
 
         // hiding & showing the title when toolbar expanded & collapsed
@@ -167,67 +160,6 @@ public class BooksFragment extends Fragment {
                 }
             }
         });
-    }
-
-    private void prepareBooks() {
-        final int[] flag = {0};
-        final int[] covers = new int[]{
-                R.drawable.book1,
-                R.drawable.book2,
-                R.drawable.book3,
-                R.drawable.book4,
-                R.drawable.book5,
-                R.drawable.book6,
-                R.drawable.book7,
-                R.drawable.book8,
-                R.drawable.book9,
-                R.drawable.book10,
-                R.drawable.book11};
-
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
-        final String username = sharedPreferences.getString("username", "xiaowang");
-        String password = sharedPreferences.getString("password", " ");
-
-        String url = "http://www.hjyheart.com/getBooks?username=" + username + "&password=" + password;
-        Log.e("url_getBook", url);
-
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Snackbar.make(getView(), "未知网络错误", Snackbar.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try{
-                    String responseData = response.body().string();
-                    JSONArray jsonArray = new JSONArray(responseData);
-
-                    for (int i = 0; i < jsonArray.length(); i++){
-                        JSONObject json = jsonArray.getJSONObject(i);
-                        String name = json.getString("name");
-                        String author = json.getString("author");
-                        String publisher = json.getString("publisher");
-                        String tag = json.getString("tag");
-                        String description = json.getString("description");
-                        String state = json.getString("state");
-                        String like = json.getString("like");
-                        Book temp = new Book(name, description, author, tag, username, state, publisher,like, covers[i]);
-                        bookList.add(temp);
-                    }
-                    flag[0] = 1;
-                }catch (JSONException e){
-
-                }
-            }
-        });
-        while (flag[0] == 0){}
-        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -276,7 +208,6 @@ public class BooksFragment extends Fragment {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -285,7 +216,68 @@ public class BooksFragment extends Fragment {
     public void showAddDialog() {
         FragmentManager fm = getFragmentManager();
         AddFragment addFragment = AddFragment.newInstance();
-        addFragment.setTargetFragment(BooksFragment.this, 300);
+        addFragment.setTargetFragment(FavFragment.this, 300);
         addFragment.show(fm, "fragment_add");
     }
+
+    private void prepareBooks() {
+        final int[] flag = {0};
+        final int[] covers = new int[]{
+                R.drawable.book1,
+                R.drawable.book2,
+                R.drawable.book3,
+                R.drawable.book4,
+                R.drawable.book5,
+                R.drawable.book6,
+                R.drawable.book7,
+                R.drawable.book8,
+                R.drawable.book9,
+                R.drawable.book10,
+                R.drawable.book11};
+
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
+        final String username = sharedPreferences.getString("username", "xiaowang");
+
+        String url = "http://www.hjyheart.com/getLikes?username=" + username;
+        Log.e("url_fav_getBook", url);
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Snackbar.make(getView(), "未知网络错误", Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try{
+                    String responseData = response.body().string();
+                    JSONArray jsonArray = new JSONArray(responseData);
+
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        JSONObject json = jsonArray.getJSONObject(i);
+                        String name = json.getString("name");
+                        String author = json.getString("author");
+                        String publisher = json.getString("publisher");
+                        String tag = json.getString("tag");
+                        String description = json.getString("description");
+                        String state = json.getString("state");
+                        String like = json.getString("like");
+                        Book temp = new Book(name, description, author, tag, username, state, publisher,like, covers[i]);
+                        bookList.add(temp);
+                    }
+                    flag[0] = 1;
+                }catch (JSONException e){
+
+                }
+            }
+        });
+        while (flag[0] == 0){}
+        adapter.notifyDataSetChanged();
+    }
+
 }

@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.hongjiayong.lifeisshort.fragments.BooksFragment;
+import com.example.hongjiayong.lifeisshort.fragments.FavFragment;
 import com.example.hongjiayong.lifeisshort.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -126,10 +127,10 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = BooksFragment.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = BlankFragment.class;
+                fragmentClass = FavFragment.class;
                 break;
             default:
-                fragmentClass = BlankFragment.class;
+                fragmentClass = SuccessActivity.class;
                 break;
         }
 

@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hongjiayong.lifeisshort.fragments.BooksFragment;
+import com.example.hongjiayong.lifeisshort.fragments.FavFragment;
 
 import java.io.IOException;
 import java.net.HttpCookie;
@@ -34,22 +34,22 @@ import okhttp3.Response;
  * Created by hongjiayong on 2016/10/5.
  */
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> implements View.OnClickListener{
+public class FavBooksAdapter extends RecyclerView.Adapter<FavBooksAdapter.MyFavViewHolder> implements View.OnClickListener{
 
     private Context mContext;
     private List<Book> bookList;
 
-    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    private FavOnRecyclerViewItemClickListener mOnItemClickListener = null;
 
     //define interface
-    public static interface OnRecyclerViewItemClickListener {
+    public static interface FavOnRecyclerViewItemClickListener {
         void onItemClick(View view , String data);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyFavViewHolder extends RecyclerView.ViewHolder {
         public TextView title, tag;
         public ImageView thumbnail, overflow;
-        public MyViewHolder(View itemView) {
+        public MyFavViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.book_title);
             tag = (TextView) itemView.findViewById(R.id.count);
@@ -58,23 +58,23 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         }
     }
 
-    public BooksAdapter(Context mContext, List<Book> bookList){
+    public FavBooksAdapter(Context mContext, List<Book> bookList){
         this.mContext = mContext;
         this.bookList = bookList;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyFavViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.book_card, parent,false);
 
         itemView.setOnClickListener(this);
 
-        return new MyViewHolder(itemView);
+        return new MyFavViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyFavViewHolder holder, int position) {
         final Book book = bookList.get(position);
         holder.title.setText(book.getName());
         holder.tag.setText(book.getTag());
@@ -103,7 +103,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_book, popup.getMenu());
+        inflater.inflate(R.menu.menu_fav, popup.getMenu());
         popup.setOnMenuItemClickListener(new MyMenuItemClickListener(name, like));
         popup.show();
     }
@@ -123,30 +123,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         @Override
         public boolean onMenuItemClick(final MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.action_add_favourite:
-                    if (like.equals("dislike")) {
-                        OkHttpClient client = new OkHttpClient();
-                        String url = "http://www.hjyheart.com/editBook?name=" + name + "&id=like&like=like";
-                        Log.e("like_url", url);
-                        Request request = new Request.Builder()
-                                .url(url)
-                                .build();
-                        client.newCall(request).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {}
-
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException {}
-                        });
-                        Toast.makeText(mContext, "加入收藏", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(mContext, "已经加入收藏", Toast.LENGTH_SHORT).show();
-                    }
-
-                    return true;
-                case R.id.action_delete:
+                case R.id.fav_action_delete:
                     OkHttpClient client = new OkHttpClient();
-                    String url = "http://www.hjyheart.com/deleteBook?name=" + name;
+                    String url = "http://www.hjyheart.com/editBook?name=" + name + "&id=like&like=dislike";
                     Request request = new Request.Builder()
                             .url(url)
                             .build();
@@ -157,9 +136,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {}
                     });
-                    Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    mContext.startActivity(intent);
+                    Toast.makeText(mContext, "取消收藏", Toast.LENGTH_SHORT).show();
                     return true;
                 default:
             }
@@ -174,7 +151,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         }
     }
 
-    public void setmOnItemClickListener(OnRecyclerViewItemClickListener mOnItemClickListener) {
+    public void setmOnItemClickListener(FavOnRecyclerViewItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 }
