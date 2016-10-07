@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.hongjiayong.lifeisshort.R;
 import com.example.hongjiayong.lifeisshort.fragments.startPages.Start1;
+import com.example.hongjiayong.lifeisshort.fragments.startPages.Start2;
 import com.example.hongjiayong.lifeisshort.tab.BaseFragment;
 import com.example.hongjiayong.lifeisshort.tab.SlidingTabLayout;
 
@@ -68,9 +69,10 @@ public class TabFragment extends Fragment {
 
         LinkedList<BaseFragment> fragments = new LinkedList<BaseFragment>();
 
-        fragments.add(Start1.newInstance("Start1", Color.BLUE, dividerColor));
-        fragments.add(Login.newInstance("Login", Color.BLUE, dividerColor));
-        fragments.add(Register.newInstance("Register", Color.BLUE, dividerColor));
+        fragments.add(Start1.newInstance("Start1", R.color.colorAccent, dividerColor));
+        fragments.add(Start2.newInstance("Start2", R.color.colorAccent, dividerColor));
+        fragments.add(Login.newInstance("Login", R.color.colorAccent, dividerColor));
+        fragments.add(Register.newInstance("Register", R.color.colorAccent, dividerColor));
 
         return fragments;
     }

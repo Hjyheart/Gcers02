@@ -169,14 +169,6 @@ public class MainActivity extends AppCompatActivity {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
-            showTips();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
     private void showTips() {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this)

@@ -8,25 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hongjiayong.lifeisshort.R;
-import com.example.hongjiayong.lifeisshort.fragments.Register;
 import com.example.hongjiayong.lifeisshort.tab.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Start1 extends BaseFragment {
+public class Start2 extends BaseFragment {
 
 
     private static final String DATA_NAME = "name";
 
     private String title = "";
 
-    public Start1() {
+    public Start2() {
         // Required empty public constructor
     }
 
-    public static Start1 newInstance(String title, int indicatorColor, int dividerColor){
-        Start1 f = new Start1();
+    public static Start2 newInstance(String title, int indicatorColor, int dividerColor){
+        Start2 f = new Start2();
         f.setTitle(title);
         f.setIndicatorColor(indicatorColor);
         f.setDividerColor(dividerColor);
@@ -44,7 +43,7 @@ public class Start1 extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_start1, container, false);
+        View view = inflater.inflate(R.layout.fragment_start2, container, false);
 
 
         return view;
@@ -81,5 +80,4 @@ public class Start1 extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
-
 }

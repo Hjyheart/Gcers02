@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.example.hongjiayong.lifeisshort.MainActivity;
 import com.example.hongjiayong.lifeisshort.R;
@@ -109,12 +110,12 @@ public class Register extends BaseFragment {
 
                 // start register
                 OkHttpClient client = new OkHttpClient();
-                String url = new String("http://www.hjyheart.com/addUser?username=" +
+                String url = "http://www.hjyheart.com/addUser?username=" +
                         username.getText().toString() + "&password=" +
                         password.getText().toString() + "&sex=" +
                         sex + "&sign=" +
                         sign.getText().toString() + "&name=" +
-                        name.getText().toString());
+                        name.getText().toString();
                 Log.e("register", url);
                 Request request = new Request.Builder()
                         .url(url)
@@ -138,51 +139,19 @@ public class Register extends BaseFragment {
                             return;
                         }
 
-                        // login in
-                        OkHttpClient loginClient = new OkHttpClient();
-                        String url = new String("http://www.hjyheart.com/login?username=" +
-                                username.getText().toString() + "&password=" +
-                                password.getText().toString());
-                        Log.e("register", url);
-                        Request request = new Request.Builder()
-                                .url(url)
-                                .build();
-                        loginClient.newCall(request).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                Snackbar.make(getView(), "未知网络错误", Snackbar.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException {
-                                try {
-                                    String responseData = response.body().string();
-                                    JSONObject json = new JSONObject(responseData);
-                                    final String name = json.getString("name");
-                                    final Boolean sex = json.getBoolean("sex");
-                                    final String sign = json.getString("sign");
-                                    final String username = json.getString("username");
-
-                                    // store
-                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("name", name);
-                                    editor.putBoolean("sex", sex);
-                                    editor.putString("sign", sign);
-                                    editor.putString("username", username);
-                                    editor.commit();
-
-                                    Intent intent = new Intent(getContext(), MainActivity.class);
-                                    startActivity(intent);
-
-
-                                } catch (JSONException e) {
-                                    Snackbar.make(getView(), "账号或密码错误", Snackbar.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
                     }
                 });
+
+                // store
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("name", name.getText().toString());
+                editor.putBoolean("sex", Boolean.parseBoolean(sex));
+                editor.putString("sign", sign.getText().toString());
+                editor.putString("username", username.getText().toString());
+                editor.commit();
+
+                Toast.makeText(getContext(), "请登录", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -12,26 +12,33 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_google_plus"/>
+            android:src="@drawable/profile"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:labelFor="@+id/profile_username"
+            android:layout_margin="10dp"
             android:text="username"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/profile_username"
+            android:gravity="center"
             android:text="username"
             android:textSize="20dp"
             android:textColor="@color/colorAccent"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:labelFor="@+id/profile_name"/>
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:labelFor="@+id/profile_name"
+            android:text="name" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:id="@+id/profile_name"
             android:text="name"
             android:textSize="20dp"
@@ -40,22 +47,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:labelFor="@+id/profile_sex"
+            android:layout_margin="10dp"
+            android:gravity="center"
             android:text="sex"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/profile_sex"
+            android:gravity="center"
             android:text="male"
             android:textSize="20dp"
             android:textColor="@color/colorAccent"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="10dp"
             android:labelFor="@+id/profile_sign"
             android:text="sign"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="sign"
             android:textSize="30dp"
             android:id="@+id/profile_sign"

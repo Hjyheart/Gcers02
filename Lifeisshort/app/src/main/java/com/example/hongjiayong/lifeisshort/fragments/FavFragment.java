@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.hongjiayong.lifeisshort.Book;
-import com.example.hongjiayong.lifeisshort.BooksAdapter;
 import com.example.hongjiayong.lifeisshort.FavBooksAdapter;
 import com.example.hongjiayong.lifeisshort.R;
 import com.example.hongjiayong.lifeisshort.dialog.AddFragment;
@@ -121,7 +120,7 @@ public class FavFragment extends Fragment {
         });
 
         try {
-            Glide.with(this).load(R.drawable.book9).into((ImageView) view.findViewById(R.id.fav_backdrop));
+            Glide.with(this).load(R.drawable.cover2).into((ImageView) view.findViewById(R.id.fav_backdrop));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -223,17 +222,16 @@ public class FavFragment extends Fragment {
     private void prepareBooks() {
         final int[] flag = {0};
         final int[] covers = new int[]{
-                R.drawable.book1,
-                R.drawable.book2,
-                R.drawable.book3,
-                R.drawable.book4,
-                R.drawable.book5,
-                R.drawable.book6,
-                R.drawable.book7,
-                R.drawable.book8,
-                R.drawable.book9,
-                R.drawable.book10,
-                R.drawable.book11};
+                R.drawable.book_1,
+                R.drawable.book_2,
+                R.drawable.book_3,
+                R.drawable.book_4,
+                R.drawable.book_5,
+                R.drawable.book_6,
+                R.drawable.book_7,
+                R.drawable.book_8,
+                R.drawable.book_9,
+                R.drawable.book_10};
 
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
@@ -267,7 +265,7 @@ public class FavFragment extends Fragment {
                         String description = json.getString("description");
                         String state = json.getString("state");
                         String like = json.getString("like");
-                        Book temp = new Book(name, description, author, tag, username, state, publisher,like, covers[i]);
+                        Book temp = new Book(name, description, author, tag, username, state, publisher,like, covers[i % 10]);
                         bookList.add(temp);
                     }
                     flag[0] = 1;

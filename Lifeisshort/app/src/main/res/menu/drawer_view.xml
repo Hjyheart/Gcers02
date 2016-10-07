@@ -3,15 +3,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_first_fragment"
-            android:icon="@drawable/icon_fb"
+            android:icon="@drawable/profile"
             android:title="My Profile" />
         <item
             android:id="@+id/nav_second_fragment"
-            android:icon="@drawable/icon_google_plus"
+            android:icon="@drawable/book_logo"
             android:title="My Books" />
         <item
             android:id="@+id/nav_third_fragment"
-            android:icon="@drawable/icon_twitter"
+            android:icon="@drawable/fav"
             android:title="My Favorite" />
     </group>
     <item android:title="Settings">
@@ -19,7 +19,7 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/logout"
-                    android:icon="@drawable/icon_share"
+                    android:icon="@drawable/logout"
                     android:title="Log Out" />
                 <item
                     android:id="@+id/quit"

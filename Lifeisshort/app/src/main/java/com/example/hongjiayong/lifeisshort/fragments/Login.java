@@ -88,9 +88,9 @@ public class Login extends BaseFragment {
 
                 // start login
                 OkHttpClient client = new OkHttpClient();
-                String url = new String("http://www.hjyheart.com/login?username=" +
+                String url = "http://www.hjyheart.com/login?username=" +
                         username.getText().toString() + "&password=" +
-                        password.getText().toString());
+                        password.getText().toString();
                 Log.e("url", url);
                 Request request = new Request.Builder()
                         .url(url)

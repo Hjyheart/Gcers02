@@ -18,13 +18,19 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="1">
-                <ImageView
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_twitter" />
+                    android:layout_height="100dp"
+                    android:text="Register"
+                    android:textSize="30sp"
+                    android:padding="20dp"
+                    style="@style/AlertDialog.AppCompat.Light"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="username" />
                 <EditText
                     android:layout_width="match_parent"
@@ -34,6 +40,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="name"/>
                 <EditText
                     android:layout_width="match_parent"
@@ -43,6 +50,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="password"/>
                 <EditText
                     android:layout_width="match_parent"
@@ -53,6 +61,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="confirm password"/>
                 <EditText
                     android:layout_width="match_parent"
@@ -63,6 +72,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="sex"/>
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -82,16 +92,21 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="sign"/>
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.53"
                     android:id="@+id/register_sign"/>
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
                     android:text="submit"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:id="@+id/register_submit"/>
 
             </LinearLayout>

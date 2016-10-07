@@ -16,14 +16,20 @@
             android:orientation="vertical"
             android:layout_marginBottom="20dp">
 
-            <ImageView
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_twitter"/>
+                android:layout_height="100dp"
+                android:text="Welcome"
+                android:textSize="30sp"
+                android:padding="20dp"
+                style="@style/AlertDialog.AppCompat.Light"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="20dp"
                 android:hint="username"
                 android:id="@+id/username" />
 
@@ -31,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:padding="20dp"
                 android:hint="password"
                 android:ems="10"
                 android:id="@+id/password" />
@@ -42,17 +49,13 @@
             android:layout_below="@+id/checkboxlayout"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:padding="16dp"
-            android:layout_marginBottom="10dp"
-            android:text="登录"
-            android:textSize="20sp"
-            android:background="#03A9F4" />
+            android:padding="20dp"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Login"
+            android:textSize="18sp"
+            style="@style/Widget.AppCompat.Button.Colored" />
 
-        <TextView
-            android:id="@+id/login_result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/login_button"/>
 
     </RelativeLayout>
 
