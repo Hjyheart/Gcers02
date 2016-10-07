@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hongjiayong.lifeisshort.R;
 import com.example.hongjiayong.lifeisshort.SuccessActivity;
@@ -154,7 +155,7 @@ public class EditFragment extends DialogFragment {
                 String responseData = response.body().string();
 
                 if (responseData.equals("true")){
-                    Snackbar.make(v, "修改成功", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v, "添加失败", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });

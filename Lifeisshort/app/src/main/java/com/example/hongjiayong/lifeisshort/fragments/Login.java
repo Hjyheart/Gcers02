@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hongjiayong.lifeisshort.MainActivity;
 import com.example.hongjiayong.lifeisshort.R;
@@ -76,8 +77,14 @@ public class Login extends BaseFragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("username", username.getText().toString());
-                Log.e("password", password.getText().toString());
+                if (username.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "请输入username", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (password.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "请输入password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // start login
                 OkHttpClient client = new OkHttpClient();
