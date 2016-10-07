@@ -125,6 +125,8 @@ public class Login extends BaseFragment {
                             Intent intent = new Intent(getContext(), MainActivity.class);
                             startActivity(intent);
 
+                            getActivity().finish();
+
 
                         } catch (JSONException e) {
                             Snackbar.make(getActivity().getCurrentFocus(), "账号或密码错误", Snackbar.LENGTH_SHORT).show();

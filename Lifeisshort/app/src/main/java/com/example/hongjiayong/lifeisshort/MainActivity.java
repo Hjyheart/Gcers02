@@ -1,6 +1,8 @@
 package com.example.hongjiayong.lifeisshort;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
@@ -10,9 +12,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -129,6 +133,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_third_fragment:
                 fragmentClass = FavFragment.class;
                 break;
+            case R.id.logout:
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                return;
+            case R.id.quit:
+                showTips();
+                return;
             default:
                 fragmentClass = SuccessActivity.class;
                 break;
@@ -158,4 +169,31 @@ public class MainActivity extends AppCompatActivity {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+            showTips();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void showTips() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Quit").setMessage("Are you sure to quit")
+                .setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                }).setNegativeButton("Cancel",
+
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        }).create();
+        alertDialog.show();
+    }
 }

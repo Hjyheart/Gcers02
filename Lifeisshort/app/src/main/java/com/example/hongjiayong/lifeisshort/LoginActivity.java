@@ -16,8 +16,6 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
         initToolbar();
         initTabFragment(savedInstanceState);
 
