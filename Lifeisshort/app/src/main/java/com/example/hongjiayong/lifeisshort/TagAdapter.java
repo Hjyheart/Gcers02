@@ -67,22 +67,15 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(TagAdapter.ViewHolder holder, final int position) {
         // Get the data model based on position
-        Tag tag = mTags.get(position);
+        final Tag tag = mTags.get(position);
 
         // Set item views based on your views and data model
         holder.name.setText(tag.getTagName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Class fragmentClass = TagBooksFragment.class;
                 Fragment fragment = null;
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                fragment = (Fragment) TagBooksFragment.newInstence(tag.getTagName());
                 fragmentmanager.beginTransaction().replace(R.id.flContent, fragment).commit();
             }
         });

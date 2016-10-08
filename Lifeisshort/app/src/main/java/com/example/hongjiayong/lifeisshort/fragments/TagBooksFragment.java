@@ -39,6 +39,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +55,21 @@ import okhttp3.Response;
  */
 public class TagBooksFragment extends Fragment {
 
+    private static String tagName;
     private RecyclerView recyclerView;
     private BooksAdapter adapter;
     private List<Book> bookList;
     private FloatingActionButton fab;
+    private TextView title;
 
     public TagBooksFragment() {
         // Required empty public constructor
+    }
+
+    public static TagBooksFragment newInstence(String tag){
+        TagBooksFragment t = new TagBooksFragment();
+        tagName = tag;
+        return t;
     }
 
 
@@ -67,15 +77,17 @@ public class TagBooksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view =  inflater.inflate(R.layout.fragment_books, container, false);
+        final View view =  inflater.inflate(R.layout.fragment_tag_books, container, false);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         initCollapsingToolbar(view);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        fab = (FloatingActionButton) view.findViewById(R.id.add_fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.tag_book_add_fab);
         bookList = new ArrayList<>();
         adapter = new BooksAdapter(this.getContext(), bookList);
+        title = (TextView) view.findViewById(R.id.tag_book_love_music);
+        title.setText(tagName);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -83,7 +95,11 @@ public class TagBooksFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        prepareBooks();
+        try {
+            prepareBooks();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         adapter.setmOnItemClickListener(new BooksAdapter.OnRecyclerViewItemClickListener() {
             @Override
@@ -127,7 +143,7 @@ public class TagBooksFragment extends Fragment {
         });
 
         try {
-            Glide.with(this).load(R.drawable.cover).into((ImageView) view.findViewById(R.id.backdrop));
+            Glide.with(this).load(R.drawable.tagcover).into((ImageView) view.findViewById(R.id.tag_book_backdrop));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -140,9 +156,9 @@ public class TagBooksFragment extends Fragment {
      */
     private void initCollapsingToolbar(View view) {
         final CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
+                (CollapsingToolbarLayout) view.findViewById(R.id.tag_book_collapsing_toolbar);
         collapsingToolbar.setTitle(" ");
-        AppBarLayout appBarLayout = (AppBarLayout) view.findViewById(R.id.appbar);
+        AppBarLayout appBarLayout = (AppBarLayout) view.findViewById(R.id.tag_book_appbar);
         appBarLayout.setExpanded(true);
 
         // hiding & showing the title when toolbar expanded & collapsed
@@ -166,7 +182,7 @@ public class TagBooksFragment extends Fragment {
         });
     }
 
-    private void prepareBooks() {
+    private void prepareBooks() throws UnsupportedEncodingException {
         final int[] flag = {0};
         final int[] covers = new int[]{
                 R.drawable.book_1,
@@ -182,10 +198,9 @@ public class TagBooksFragment extends Fragment {
 
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
-        final String username = sharedPreferences.getString("username", "xiaowang");
-        String password = sharedPreferences.getString("password", " ");
+        final String username = sharedPreferences.getString("username", "xiaohong");
 
-        String url = "http://www.hjyheart.com/getBooks?username=" + username + "&password=" + password;
+        String url = "http://www.hjyheart.com/getTagBooks?username=" + username + "&tag=" + URLEncoder.encode(tagName, "utf-8");
         Log.e("url_getBook", url);
 
         OkHttpClient client = new OkHttpClient();
