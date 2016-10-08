@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 
 import com.example.hongjiayong.lifeisshort.fragments.BooksFragment;
+import com.example.hongjiayong.lifeisshort.fragments.TagBooksFragment;
 import com.example.hongjiayong.lifeisshort.fragments.TagFragment;
 
 import java.util.List;
@@ -73,7 +74,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Class fragmentClass = BooksFragment.class;
+                Class fragmentClass = TagBooksFragment.class;
                 Fragment fragment = null;
                 try {
                     fragment = (Fragment) fragmentClass.newInstance();
