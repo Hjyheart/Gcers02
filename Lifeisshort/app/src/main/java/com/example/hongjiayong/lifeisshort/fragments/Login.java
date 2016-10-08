@@ -99,7 +99,7 @@ public class Login extends BaseFragment {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        Snackbar.make(getActivity().getCurrentFocus(), "网络未知错误", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getView(), "网络未知错误", Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -129,7 +129,7 @@ public class Login extends BaseFragment {
 
 
                         } catch (JSONException e) {
-                            Snackbar.make(getActivity().getCurrentFocus(), "账号或密码错误", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getView(), "账号或密码错误", Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 });

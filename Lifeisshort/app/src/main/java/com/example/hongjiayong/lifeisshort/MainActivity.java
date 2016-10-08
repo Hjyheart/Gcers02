@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.example.hongjiayong.lifeisshort.fragments.BooksFragment;
 import com.example.hongjiayong.lifeisshort.fragments.FavFragment;
 import com.example.hongjiayong.lifeisshort.fragments.ProfileFragment;
+import com.example.hongjiayong.lifeisshort.fragments.TagFragment;
 import com.example.hongjiayong.lifeisshort.fragments.VersionFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -133,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_third_fragment:
                 fragmentClass = FavFragment.class;
+                break;
+            case R.id.nav_tag:
+                fragmentClass = TagFragment.class;
                 break;
             case R.id.logout:
                 Intent intent = new Intent(this, LoginActivity.class);
