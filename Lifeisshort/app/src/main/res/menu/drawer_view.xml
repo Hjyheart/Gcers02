@@ -13,6 +13,10 @@
             android:id="@+id/nav_third_fragment"
             android:icon="@drawable/fav"
             android:title="My Favorite" />
+        <item
+            android:id="@+id/nav_tag"
+            android:icon="@drawable/tag"
+            android:title="Tag" />
     </group>
     <item android:title="Settings">
         <menu>
