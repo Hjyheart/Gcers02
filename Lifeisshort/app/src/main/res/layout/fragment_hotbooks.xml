@@ -1,0 +1,40 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hongjiayong.lifeisshort.fragments.HotbooksFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="186dp"
+        android:text="Hot Books"
+        android:layout_margin="10dp"
+        android:background="@color/login_bg" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Hot Books"
+            android:background="@color/accent_color" />
+
+        <Button
+            android:layout_height="350dp"
+            android:layout_width="264dp"
+            android:text="Hot Books"
+            android:background="?attr/actionModeSplitBackground" />
+    </LinearLayout>
+</LinearLayout>
+
+</FrameLayout>

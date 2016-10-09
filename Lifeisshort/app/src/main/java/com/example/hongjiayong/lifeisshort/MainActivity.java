@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.hongjiayong.lifeisshort.fragments.BooksFragment;
 import com.example.hongjiayong.lifeisshort.fragments.FavFragment;
+import com.example.hongjiayong.lifeisshort.fragments.HotbooksFragment;
 import com.example.hongjiayong.lifeisshort.fragments.ProfileFragment;
 import com.example.hongjiayong.lifeisshort.fragments.TagFragment;
 import com.example.hongjiayong.lifeisshort.fragments.VersionFragment;
@@ -126,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         Class fragmentClass;
         switch(menuItem.getItemId()) {
+            case R.id.nav_hot_books:
+                fragmentClass = HotbooksFragment.class;
+                break;
             case R.id.nav_first_fragment:
                 fragmentClass = ProfileFragment.class;
                 break;

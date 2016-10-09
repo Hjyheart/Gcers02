@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="同济小红车队"/>
+            android:text="XXXXXXXXX"/>
 
     </LinearLayout>
 

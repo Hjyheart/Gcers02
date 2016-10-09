@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_hot_books"
+            android:icon="@drawable/hotbooks"
+            android:title="Hot Books"
+            />
+        <item
             android:id="@+id/nav_first_fragment"
             android:icon="@drawable/profile"
             android:title="My Profile" />

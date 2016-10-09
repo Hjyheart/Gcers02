@@ -138,6 +138,9 @@ public class FavBooksAdapter extends RecyclerView.Adapter<FavBooksAdapter.MyFavV
                     });
                     Toast.makeText(mContext, "取消收藏", Toast.LENGTH_SHORT).show();
                     return true;
+                case R.id.fav_action_share:
+                    Toast.makeText(mContext, "可以进行分享", Toast.LENGTH_SHORT).show();
+                    break;
                 default:
             }
             return false;

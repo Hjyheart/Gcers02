@@ -5,5 +5,11 @@
     <item
         android:id="@+id/fav_action_delete"
         android:orderInCategory="101"
+        android:icon="@drawable/delete"
         android:title="delete" />
+    <item
+        android:id="@+id/fav_action_share"
+        android:orderInCategory="102"
+        android:icon="@drawable/icon_share"
+        android:title="share"/>
 </menu>

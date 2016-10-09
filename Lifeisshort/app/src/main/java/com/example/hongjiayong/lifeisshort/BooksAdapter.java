@@ -161,6 +161,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                     Intent intent = new Intent(mContext, MainActivity.class);
                     mContext.startActivity(intent);
                     return true;
+                case R.id.action_share:
+                    Toast.makeText(mContext, "可以进行分享", Toast.LENGTH_SHORT).show();
+                    break;
                 default:
             }
             return false;

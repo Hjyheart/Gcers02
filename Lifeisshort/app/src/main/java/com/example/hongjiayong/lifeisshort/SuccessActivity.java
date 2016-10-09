@@ -24,5 +24,7 @@ public class SuccessActivity extends AppCompatActivity {
             }
         };
         timer.schedule(task, 1500);
+
+        finish();
     }
 }
