@@ -78,12 +78,15 @@ public class Login extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (username.getText().toString().equals("")){
-                    Toast.makeText(getContext(), "请输入username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "plwase input username", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (password.getText().toString().equals("")){
-                    Toast.makeText(getContext(), "请输入password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "please input password", Toast.LENGTH_SHORT).show();
                     return;
+                }
+                if (password.getText().toString().length() < 8){
+                    Toast.makeText(getContext(), "password should longer than 8", Toast.LENGTH_SHORT).show();
                 }
 
                 // start login
@@ -99,7 +102,7 @@ public class Login extends BaseFragment {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        Snackbar.make(getView(), "网络未知错误", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getView(), "connect error", Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -129,7 +132,7 @@ public class Login extends BaseFragment {
 
 
                         } catch (JSONException e) {
-                            Snackbar.make(getView(), "账号或密码错误", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getView(), "wrong password or no user", Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -136,10 +136,10 @@ public class FavBooksAdapter extends RecyclerView.Adapter<FavBooksAdapter.MyFavV
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {}
                     });
-                    Toast.makeText(mContext, "取消收藏", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "cancel success", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.fav_action_share:
-                    Toast.makeText(mContext, "可以进行分享", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "can be shared", Toast.LENGTH_SHORT).show();
                     break;
                 default:
             }

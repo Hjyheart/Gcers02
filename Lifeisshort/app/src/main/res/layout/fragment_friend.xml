@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hongjiayong.lifeisshort.fragments.FriendFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            app:srcCompat="@drawable/cover"
+            android:id="@+id/imageView"
+            android:scaleType="fitXY" />
+
+        <Button
+            android:text="Share1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:layout_weight="0.18" />
+
+        <Button
+            android:text="Share2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3"
+            android:layout_weight="0.18" />
+
+        <Button
+            android:text="Share3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button4"
+            android:layout_weight="0.18" />
+
+        <Button
+            android:text="Share4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button5"
+            android:layout_weight="0.18" />
+    </LinearLayout>
+</FrameLayout>

@@ -138,9 +138,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {}
                         });
-                        Toast.makeText(mContext, "加入收藏", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "add success", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(mContext, "已经加入收藏", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "have been added", Toast.LENGTH_SHORT).show();
                     }
 
                     return true;
@@ -157,12 +157,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {}
                     });
-                    Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "delete success", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, MainActivity.class);
                     mContext.startActivity(intent);
                     return true;
                 case R.id.action_share:
-                    Toast.makeText(mContext, "可以进行分享", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "can be shared", Toast.LENGTH_SHORT).show();
                     break;
                 default:
             }

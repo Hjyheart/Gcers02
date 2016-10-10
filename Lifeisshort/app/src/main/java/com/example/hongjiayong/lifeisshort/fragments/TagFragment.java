@@ -83,7 +83,7 @@ public class TagFragment extends Fragment{
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Snackbar.make(getView(), "未知网络错误", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getView(), "connect error", Snackbar.LENGTH_SHORT).show();
             }
 
             @Override

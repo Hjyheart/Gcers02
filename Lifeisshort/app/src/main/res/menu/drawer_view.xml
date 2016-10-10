@@ -7,6 +7,11 @@
             android:title="Hot Books"
             />
         <item
+            android:id="@+id/friends"
+            android:icon="@drawable/friends"
+            android:title="Friends"
+            />
+        <item
             android:id="@+id/nav_first_fragment"
             android:icon="@drawable/profile"
             android:title="My Profile" />

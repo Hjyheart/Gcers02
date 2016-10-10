@@ -87,18 +87,24 @@ public class Register extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (username.getText().toString().equals("")){
-                    Snackbar.make(getView(), "请输入username", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), "please input username", Snackbar.LENGTH_SHORT).show();
                     return;
                 }
                 if (name.getText().toString().equals("")){
-                    Snackbar.make(getView(), "请输入name", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), "please input name", Snackbar.LENGTH_SHORT).show();
                     return;
                 }
                 if (password.getText().toString().equals("")){
-                    Snackbar.make(getView(), "请输入password", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), "please input password", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+                if (password.getText().toString().length() < 8){
+                    Snackbar.make(getView(), "password should longer than 8", Snackbar.LENGTH_SHORT).show();
+                    return;
                 }
                 if (!password.getText().toString().equals(confirmPassword.getText().toString())){
-                    Snackbar.make(getView(), "两次密码不相同", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), "two passwords differ", Snackbar.LENGTH_SHORT).show();
+                    return;
                 }
 
 
@@ -124,18 +130,18 @@ public class Register extends BaseFragment {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        Snackbar.make(getView(), "网络未知错误", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getView(), "connect error", Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String responseData = response.body().string();
                         if (responseData.equals("exsist")){
-                            Snackbar.make(getView(), "用户已经存在", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getView(), "user exists", Snackbar.LENGTH_SHORT).show();
                             return;
                         }
                         if (responseData.equals("false")){
-                            Snackbar.make(getView(), "注册失败,请重试", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getView(), "fail, try again", Snackbar.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -151,7 +157,7 @@ public class Register extends BaseFragment {
                 editor.putString("username", username.getText().toString());
                 editor.commit();
 
-                Toast.makeText(getContext(), "请登录", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "please come to login", Toast.LENGTH_SHORT).show();
             }
         });
 
